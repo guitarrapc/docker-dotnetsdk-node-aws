@@ -49,14 +49,16 @@ RUN set -x && \
     && ln -s /usr/local/bin/node /usr/local/bin/nodejs; \
     fi
 
+# obsolate, use glibc instead.
 # # pulumi dependency for alpine https://github.com/pulumi/pulumi/issues/1986
 # RUN set -x && \
 #     apk add --no-cache curl libc6-compat
 
-# grpc dependencies for alpine. https://github.com/grpc/grpc/issues/18428#issuecomment-535041155
+# pulumi grpc dependencies for alpine. https://github.com/grpc/grpc/issues/18428#issuecomment-535041155
+# exclusive with libc6-compat, but gRPC requires glibc. You should use this, not libc6-compat.
 RUN set -x && \
     wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub \
-    && wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.30-r0/glibc-2.30-r0.apk \
+    && wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/${GLIBC}/glibc-${GLIBC}.apk \
     && apk add --no-cache glibc-${GLIBC}.apk
 
 RUN rm -rf /var/cache/apk/*
