@@ -1,0 +1,1 @@
+docker-dotnetsdk-node-aws
