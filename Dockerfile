@@ -8,8 +8,9 @@ LABEL description="An Alpine based docker image contains a good combination of c
     tools included: Node, .NetCore SDK, AWS-CLI"
 
 ENV AWS_CLI_VERSION="1.16.292"
-ENV NODE_VERSION 8.16.2
+ENV NODE_VERSION="8.16.2"
 
+# python3 pip3
 RUN set -x && \
     apk add --no-cache python3 && \
     python3 -m ensurepip && \
@@ -19,6 +20,7 @@ RUN set -x && \
     if [[ ! -e /usr/bin/python ]]; then ln -sf /usr/bin/python3 /usr/bin/python; fi && \
     rm -r /root/.cache
 
+# awscli
 RUN set -x && \
     apk --no-cache update && \
     apk --no-cache add curl jq make bash ca-certificates groff less git openssh-client && \
@@ -26,6 +28,7 @@ RUN set -x && \
     pip3 --no-cache-dir install awscli==${AWS_CLI_VERSION} && \
     rm -rf /var/cache/apk/*
 
+# node
 RUN set -x && \
     apk add --no-cache libstdc++ \
     && apk add --no-cache --virtual .build-deps curl \
@@ -44,6 +47,10 @@ RUN set -x && \
     && tar -xJf "node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz" -C /usr/local --strip-components=1 --no-same-owner \
     && ln -s /usr/local/bin/node /usr/local/bin/nodejs; \
     fi
+
+# pulumi dependency for alpine https://github.com/pulumi/pulumi/issues/1986
+RUN set -x && \
+    apk add --no-cache curl libc6-compat
 
 RUN rm -rf /var/cache/apk/*
 
