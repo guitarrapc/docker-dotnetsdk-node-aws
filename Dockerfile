@@ -49,9 +49,9 @@ RUN set -x && \
     && ln -s /usr/local/bin/node /usr/local/bin/nodejs; \
     fi
 
-# pulumi dependency for alpine https://github.com/pulumi/pulumi/issues/1986
-RUN set -x && \
-    apk add --no-cache curl libc6-compat
+# # pulumi dependency for alpine https://github.com/pulumi/pulumi/issues/1986
+# RUN set -x && \
+#     apk add --no-cache curl libc6-compat
 
 # grpc dependencies for alpine. https://github.com/grpc/grpc/issues/18428#issuecomment-535041155
 RUN set -x && \
