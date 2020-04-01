@@ -1,13 +1,13 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:3.0.101-alpine3.10
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1.201-alpine3.11
 
 LABEL tools="docker-image, dotnetsdk, aws, node, docker, bash, alpine, curl, python3, pip3, git"
-# version is aws version
-LABEL version="1.16.292"
+# version is dotnet
+LABEL version="3.1.201"
 LABEL description="An Alpine based docker image contains a good combination of commenly used tools\
     to build, package as docker image. \
     tools included: Node, .NetCore SDK, AWS-CLI"
 
-ENV AWS_CLI_VERSION="1.16.292"
+ENV AWS_CLI_VERSION="1.18.33"
 ENV NODE_VERSION="8.16.2"
 ENV GLIBC="2.30-r0"
 
